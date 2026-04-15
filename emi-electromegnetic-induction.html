@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMI Complete Notes + Quiz</title>
+
+<style>
+body { margin:0; font-family:Arial; background:#0f172a; color:#e2e8f0; }
+header { background:#020617; padding:15px; text-align:center; font-size:22px; }
+nav { background:#1e293b; padding:10px; text-align:center; }
+nav a { color:#38bdf8; margin:10px; text-decoration:none; }
+
+section {
+    margin:15px;
+    padding:15px;
+    background:#1e293b;
+    border-radius:10px;
+}
+
+h2 { color:#22c55e; }
+
+.formula {
+    background:#020617;
+    padding:10px;
+    margin:8px 0;
+    border-left:4px solid #38bdf8;
+}
+
+.pyq {
+    background:#020617;
+    padding:10px;
+    margin:10px 0;
+    border-left:4px solid #22c55e;
+}
+
+button {
+    padding:10px;
+    margin:5px;
+    background:#22c55e;
+    border:none;
+    cursor:pointer;
+}
+
+.correct { background:green; }
+.wrong { background:red; }
+
+#timer { color:#facc15; }
+</style>
+</head>
+
+<body>
+
+<header>⚡ EMI Complete Notes + Quiz (JEE 2026)</header>
+
+<nav>
+<a href="https://jee123-dot.github.io/Jee/index.html">🏠 Home</a>
+</nav>
+
+<section>
+<h2>📘 Electromagnetic Induction (Detailed Theory)</h2>
+
+<p><b>Electromagnetic Induction:</b> When magnetic flux linked with a circuit changes, an EMF is induced.</p>
+
+<p><b>Magnetic Flux:</b> It is the number of magnetic field lines passing through an area.</p>
+<div class="formula">Φ = B A cosθ</div>
+
+<p><b>Faraday's First Law:</b> EMF is induced when flux changes.</p>
+
+<p><b>Faraday's Second Law:</b> Magnitude of EMF is proportional to rate of change of flux.</p>
+<div class="formula">E = - dΦ/dt</div>
+
+<p><b>Lenz Law:</b> Direction of induced current opposes cause (energy conservation).</p>
+
+</section>
+
+<section>
+<h2>⚡ Motional EMF (Most Important)</h2>
+
+<p>When conductor moves in magnetic field, EMF is generated.</p>
+<div class="formula">E = B l v</div>
+
+<p>Direction → Fleming Right Hand Rule</p>
+
+</section>
+
+<section>
+<h2>🔁 Self Inductance</h2>
+
+<p>Property of coil to oppose change in current.</p>
+<div class="formula">E = -L (dI/dt)</div>
+
+<div class="formula">L = NΦ / I</div>
+
+</section>
+
+<section>
+<h2>🔗 Mutual Inductance</h2>
+
+<p>Change in current in one coil induces EMF in another.</p>
+
+</section>
+
+<section>
+<h2>⚡ Energy Stored</h2>
+<div class="formula">U = ½ L I²</div>
+</section>
+
+<section>
+<h2>📘 LR Circuit</h2>
+
+<p>Time constant:</p>
+<div class="formula">τ = L / R</div>
+
+<p>Current grows/decays exponentially.</p>
+</section>
+
+<section>
+<h2>🔥 PYQs (Important)</h2>
+
+<div class="pyq">
+Q1: Moving rod EMF?<br>
+Ans: E = Blv
+</div>
+
+<div class="pyq">
+Q2: Time constant?<br>
+Ans: τ = L/R
+</div>
+
+<div class="pyq">
+Q3: Energy in inductor?<br>
+Ans: ½ L I²
+</div>
+
+</section>
+
+<section>
+<h2>🧠 Tricks</h2>
+<ul>
+<li>Flux change = EMF</li>
+<li>Motional EMF = Blv (very important)</li>
+<li>Lenz Law always apply</li>
+</ul>
+</section>
+
+<section>
+<h2>❌ Common Mistakes</h2>
+<ul>
+<li>Sign ignore ❌</li>
+<li>Lenz law wrong ❌</li>
+<li>Angle confusion ❌</li>
+</ul>
+</section>
+
+<section>
+<h2>🧠 Quiz</h2>
+
+<p id="timer">Time: 60</p>
+<div id="quiz"></div>
+
+<button onclick="startQuiz()">Start Quiz</button>
+<button onclick="submitQuiz()">Submit</button>
+
+<p id="result"></p>
+
+</section>
+
+<script>
+let questions = [
+{q:"Motional EMF?",options:["Blv","IR","L/R","BA"],ans:0},
+{q:"Unit of L?",options:["Henry","Tesla","Volt","Ohm"],ans:0},
+{q:"Lenz law?",options:["Oppose","Help","Ignore","None"],ans:0},
+{q:"Time constant?",options:["L/R","R/L","IR","V/R"],ans:0}
+];
+
+let timer=60;
+let interval;
+let score=0;
+
+function startQuiz(){
+    let quiz=document.getElementById("quiz");
+    quiz.innerHTML="";
+    score=0;
+
+    questions.forEach((q,i)=>{
+        quiz.innerHTML+=`<p>${q.q}</p>`;
+        q.options.forEach((opt,j)=>{
+            quiz.innerHTML+=`<button onclick="check(this,${i},${j})">${opt}</button>`;
+        });
+    });
+
+    interval=setInterval(()=>{
+        timer--;
+        document.getElementById("timer").innerText="Time: "+timer;
+        if(timer==0){
+            clearInterval(interval);
+            submitQuiz();
+        }
+    },1000);
+}
+
+function check(btn,qIndex,optIndex){
+    if(optIndex==questions[qIndex].ans){
+        btn.classList.add("correct");
+        score++;
+    } else {
+        btn.classList.add("wrong");
+    }
+}
+
+function submitQuiz(){
+    clearInterval(interval);
+    document.getElementById("result").innerText="Score: "+score+"/"+questions.length;
+}
+</script>
+
+</body>
+</html>
